@@ -1,2 +1,3 @@
+.vscode
 build
 include/cppkafka/config.h

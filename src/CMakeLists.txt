@@ -39,7 +39,7 @@ add_library(${TARGET_NAME} ${CPPKAFKA_LIBRARY_TYPE} ${SOURCES})
 IF(MSVC)
     target_compile_definitions(${TARGET_NAME} PUBLIC NOMINMAX)
 ENDIF()
-target_compile_features(${TARGET_NAME} PUBLIC cxx_std_11)
+target_compile_features(${TARGET_NAME} PUBLIC cxx_std_17)
 target_include_directories(${TARGET_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include/cppkafka>)
 set_target_properties(${TARGET_NAME} PROPERTIES
         ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_INSTALL_LIBDIR}"
@@ -50,8 +50,7 @@ set_target_properties(${TARGET_NAME} PROPERTIES
         INSTALL_RPATH_USE_LINK_PATH TRUE
         VERSION ${CPPKAFKA_VERSION}
         SOVERSION ${CPPKAFKA_VERSION})
-# In CMake >= 3.15 Boost::boost == Boost::headers
-target_link_libraries(${TARGET_NAME} PUBLIC RdKafka::rdkafka Boost::boost)
+target_link_libraries(${TARGET_NAME} PUBLIC RdKafka::rdkafka)
 if (WIN32)
     # On windows ntohs and related are in ws2_32
     target_link_libraries(${TARGET_NAME} PUBLIC ws2_32.lib)
